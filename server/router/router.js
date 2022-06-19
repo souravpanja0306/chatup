@@ -47,6 +47,7 @@ router.post('/login', async (req, res) => {
     }
 })
 
+router.post('/conversations', conversationCon)
 
 
 module.exports = router
