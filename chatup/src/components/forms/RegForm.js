@@ -21,10 +21,14 @@ const RegForm = () => {
         e.preventDefault()
         if (name && phone && email && password && confirmpassword) {
             axios.post("http://localhost:4000/registration", regData)
-                .then((res) => { console.log(res) })
-                .catch((err) => { console.log(err) })
-            alert("Thank You for conneting with us")
-            navigate('/login')
+                .then((res) => {
+                    console.log(res)
+                    alert("Thank You for conneting with us")
+                    navigate('/login')
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
         } else {
             alert("Sorry")
         }
@@ -81,7 +85,7 @@ const RegForm = () => {
                     </div>
                 </div>
                 <div className='w-1/2 flex items-center'>
-                    <img src={chatup} alt="No Images" className='h-full w-full'/>
+                    <img src={chatup} alt="No Images" className='h-full w-full' />
                 </div>
             </div>
         </>

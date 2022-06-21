@@ -7,7 +7,7 @@ import chatup from '../../Assets/Images/chatup2.jpg'
 
 const LoginForm = () => {
     const navigate = useNavigate()
-    const [userData, setUserData] = useState({ username: "", password: "" })
+    const [userData, setUserData] = useState({ email: "", password: "" })
 
     const handelChange = (e) => {
         let userDatas = { ...userData }
@@ -18,8 +18,8 @@ const LoginForm = () => {
 
     const submit = (e) => {
         e.preventDefault()
-        const { username, password } = userData
-        if (username && password) {
+        const { email, password } = userData
+        if (email && password) {
             axios.post("http://localhost:4000/login", userData)
                 .then((res) => {
                     console.log(res.status)
@@ -47,9 +47,9 @@ const LoginForm = () => {
                     <h1 className='text-3xl font-bold text-orange-500 text-center p-2'>Login</h1>
                     <form method="post">
                         <div className='grid'>
-                            <label className='p-2'>Username</label>
+                            <label className='p-2'>Email</label>
                             <input
-                                name="username"
+                                name="email"
                                 onChange={(e) => handelChange(e)}
                                 className='p-2 rounded-lg border-solid border-gray-600 border-2' />
                         </div>
@@ -57,6 +57,7 @@ const LoginForm = () => {
                             <label className='p-2'>Password</label>
                             <input
                                 name="password"
+                                type="password"
                                 onChange={(e) => handelChange(e)}
                                 className='p-2 rounded-lg border-solid border-gray-600 border-2' />
                         </div>

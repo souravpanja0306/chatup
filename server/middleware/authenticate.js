@@ -1,8 +1,9 @@
-
+const registrationSchema = require('../models/registrationSchema')
+const jwt = require('jsonwebtoken')
 
 const authenticate = async (req, res, next) => {
-
     try {
+
         const user = false
         if (!user) {
             console.log(error)
