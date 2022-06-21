@@ -5,12 +5,16 @@ const cors = require('cors')
 // Import Controllers
 const { registrationPost, registrationGet } = require('../controllers/registrationCon')
 const { loginPost } = require('../controllers/loginCon')
-const { conversationPost , conversationGet} = require('../controllers/conversationCon')
+const { conversationPost, conversationGet } = require('../controllers/conversationCon')
 const { messegeGet, messegePost } = require('../controllers/messegeCon')
+const authenticate = require('../middleware/authenticate')
 
 router.use(cors())
 router.use(express.json())
 
+
+
+router.get('/messenger', authenticate, (req, res) => console.log("I am from Backend"))
 
 // Registration Data Post , Get 
 router.post('/registration', registrationPost) //Post Data

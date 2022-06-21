@@ -1,5 +1,5 @@
 import React from 'react'
-import chatup from '../Assets/Images/chatup.jpeg'
+import chatup from '../Assets/Images/chat2.png'
 
 const Home = () => {
     return (
@@ -14,6 +14,9 @@ const Home = () => {
                     <p className='text-blue-600 font-bold text-4xl text-center'>More than 710+ Billion user in <span className='text-5xl text-green-500'>The Univers</span></p>
                 </div>
 
+                <div className='flex justify-center h-72'>
+                    <img src={chatup} alt="None" />
+                </div>
                 <div className='flex'>
                     <div className='w-1/2 border-solid border-2 border-orange-200 shadow-lg rounded-lg p-4 m-4'>
                         <p className='text-justify indent-8'>
@@ -27,9 +30,6 @@ const Home = () => {
                             Also this chat app use Socket.Io
                         </p>
                     </div>
-                </div>
-                <div className='flex justify-center'>
-                    <img src={chatup} alt="None" />
                 </div>
             </div>
 

@@ -21,11 +21,11 @@ const LoginForm = () => {
         const { username, password } = userData
         if (username && password) {
             axios.post("http://localhost:4000/login", userData)
-                .then((res) => { 
-                    console.log(res.status) 
-                    if(res.status === 200){
+                .then((res) => {
+                    console.log(res.status)
+                    if (res.status === 200) {
                         navigate('/messenger')
-                    }else{
+                    } else {
                         alert("Invalid Credentioal")
                     }
                 })
@@ -39,36 +39,33 @@ const LoginForm = () => {
 
     return (
         <>
-            <div className='min-h-screen'>
-                <div className='flex'>
-                    <div className='w-1/2 flex items-center'>
-                        <img src={chatup} alt="No Images" />
-                    </div>
-                    <div className='w-1/2 grid px-24'>
-                        <h1 className='text-3xl font-bold text-orange-500 text-center p-2'>Login</h1>
-                        <form method="post">
-                            <div className='grid'>
-                                <label className='p-2'>Username</label>
-                                <input
-                                    name="username"
-                                    onChange={(e) => handelChange(e)}
-                                    className='p-2 rounded-lg border-solid border-gray-600 border-2' />
-                            </div>
-                            <div className='grid'>
-                                <label className='p-2'>Password</label>
-                                <input
-                                    name="password"
-                                    onChange={(e) => handelChange(e)}
-                                    className='p-2 rounded-lg border-solid border-gray-600 border-2' />
-                            </div>
-                            <button className='bg-blue-500 px-4 py-2 rounded-xl my-2 text-white' onClick={(e) => submit(e)}>Submit</button>
-                        </form>
-                        <div className='flex'>
-                            <h1>Not Registered?</h1>
-                            <h1 className='text-blue-500'><Link to="/registration">Registration</Link></h1>
+            <div className='flex min-h-screen items-center'>
+                <div className='w-1/2 flex items-center'>
+                    <img src={chatup} alt="No Images" className='h-full w-full' />
+                </div>
+                <div className='w-1/2 grid px-24'>
+                    <h1 className='text-3xl font-bold text-orange-500 text-center p-2'>Login</h1>
+                    <form method="post">
+                        <div className='grid'>
+                            <label className='p-2'>Username</label>
+                            <input
+                                name="username"
+                                onChange={(e) => handelChange(e)}
+                                className='p-2 rounded-lg border-solid border-gray-600 border-2' />
                         </div>
+                        <div className='grid'>
+                            <label className='p-2'>Password</label>
+                            <input
+                                name="password"
+                                onChange={(e) => handelChange(e)}
+                                className='p-2 rounded-lg border-solid border-gray-600 border-2' />
+                        </div>
+                        <button className='bg-blue-500 px-4 py-2 rounded-xl my-2 text-white' onClick={(e) => submit(e)}>Submit</button>
+                    </form>
+                    <div className='flex'>
+                        <h1>Not Registered?</h1>
+                        <h1 className='text-blue-500'><Link to="/registration">Registration</Link></h1>
                     </div>
-
                 </div>
             </div>
         </>

@@ -1,6 +1,6 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 import Conversation from '../components/messenger/Conversation'
 import Profile from '../components/messenger/Profile'
 import Messeges from '../components/messenger/Messeges'
@@ -8,6 +8,7 @@ import Online from '../components/messenger/Online'
 
 const Messenger = () => {
     const [messeges, setMesseges] = useState()
+    const navigate = useNavigate()
 
     const handelChange = (e) => {
         setMesseges(e.target.value)
@@ -25,6 +26,21 @@ const Messenger = () => {
             .catch((error) => console.log(error))
 
     }
+
+    useEffect(() => {
+        isUser()
+    }, [])
+
+    const isUser = async (req, res) => {
+        try {
+            const res = await axios.get('http://localhost:4000/messenger')
+            console.log(res)
+        } catch (error) {
+            console.log(error)
+            navigate('/login')
+        }
+    }
+
 
     return (
         <>
