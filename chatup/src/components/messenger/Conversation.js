@@ -1,5 +1,5 @@
 import React from 'react'
-import Avater from '../../Assets/Images/avater.png'
+import Avater from '../../Assets/images/avater.png'
 
 const Conversation = () => {
     const image = false

@@ -8,7 +8,9 @@ import Online from '../components/messenger/Online'
 
 const Messenger = () => {
     const [messeges, setMesseges] = useState()
+    const [users, setUsers] = useState()
     const navigate = useNavigate()
+    const chat = true
 
     const handelChange = (e) => {
         setMesseges(e.target.value)
@@ -41,14 +43,23 @@ const Messenger = () => {
         }
     }
 
+    useEffect(() => {
+        getusers()
+    }, [])
+
+    const getusers = async () => {
+        await axios.get('http://localhost:4000/registration/data')
+            .then((res) => { setUsers(res.data) })
+            .catch((error) => { console.log(error) })
+    }
 
     return (
         <>
             <div className='p-4 font-mono min-h-screen'>
-                <h1 className='text-3xl font-bold text-orange-500 text-center'>Chatup Messenger</h1>
+                <h1 className='text-3xl font-bold text-orange-600 text-center p-2'>Chatup Messenger</h1>
                 <div className='flex'>
-                    <div className='w-1/4 font-bold m-1 p-1 border-solid border-2 border-orange-100 shadow-lg rounded-lg'>
-                        <div className='flex items-center p-2 shadow-lg border-solid border-2 border-gray-200 m-1 rounded-lg font-mono'>
+                    <div className='w-1/4 font-bold m-1 p-1 border-solid border-2 border-orange-300 shadow-lg rounded-lg'>
+                        <div className='flex justify-center items-center p-2 shadow-lg border-solid border-2 border-gray-400 m-1 rounded-lg font-mono'>
                             <h1 className='px-2'>Conversation</h1>
                         </div>
                         <div className='h-96 overflow-y-scroll'>
@@ -69,33 +80,51 @@ const Messenger = () => {
                             <Conversation />
                         </div>
                     </div>
-                    <div className='w-2/4 h-100 font-bold m-1 p-1 border-solid border-2 border-orange-100 shadow-lg rounded-lg scroll'>
+                    <div className='w-2/4 font-bold m-1 p-1 border-solid border-2 border-orange-300 shadow-lg rounded-lg scroll'>
                         <Profile />
-                        <div className='h-96 overflow-y-scroll '>
-                            <Messeges me={false} />
-                            <Messeges me={true} />
-                            <Messeges />
-                            <Messeges me={true} />
-                            <Messeges me={true} />
-                            <Messeges me={true} />
-                            <Messeges me={true} />
-                            <Messeges me={true} />
-                        </div>
-                        <div className=''>
-                            <form className='flex'>
-                                <textarea className='p-4 border-gray-500 border-2 w-full rounded-lg ' rows="2" onChange={(e) => handelChange(e)} />
-                                <div className='flex justify-center items-end p-1'>
-                                    <button className='bg-blue-700 text-white px-4 py-2 rounded-lg' onClick={(e) => handelSubmit(e)}>Send</button>
-                                </div>
-                            </form>
+                        {
+                            chat
+                                ?
+                                <>
+                                    <div className='h-96 overflow-y-scroll '>
+                                        <Messeges me={false} />
+                                        <Messeges me={true} />
+                                        <Messeges />
+                                        <Messeges me={true} />
+                                        <Messeges me={true} />
+                                        <Messeges me={true} />
+                                        <Messeges me={true} />
+                                        <Messeges me={true} />
+                                    <div className='p-2 sticky bottom-0 bg-white'>
+                                        <form className='flex'>
+                                            <textarea className='p-4 border-gray-500 border-2 w-full rounded-lg ' rows="2" onChange={(e) => handelChange(e)} />
+                                            <div className='flex justify-center items-end p-1'>
+                                                <button className='bg-blue-700 text-white px-4 py-2 rounded-lg' onClick={(e) => handelSubmit(e)}>Send</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    </div>
+                                </>
+                                : <h1 className='text-gray-300 text-7xl'>Please select a conversation</h1>
+                        }
 
-                        </div>
+
                     </div>
-                    <div className='w-1/4 font-bold m-1 p-1 border-solid border-2 border-orange-100 shadow-lg rounded-lg'>
-                        <div className='flex items-center p-2 shadow-lg border-solid border-2 border-gray-200 m-1 rounded-lg font-mono'>
+                    <div className='w-1/4 font-bold m-1 p-1 border-solid border-2 border-orange-300 shadow-lg rounded-lg'>
+                        <div className='flex justify-center items-center p-2 shadow-lg border-solid border-2 border-gray-400 m-1 rounded-lg font-mono'>
                             <h1 className='px-2'>Online</h1>
                         </div>
-                        <Online />
+                        <div className='h-96 overflow-y-scroll'>
+                            {
+                                users && users.map((user, index) => {
+                                    return (
+                                        <div key={index} className="">
+                                            <Online props={user.name} />
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

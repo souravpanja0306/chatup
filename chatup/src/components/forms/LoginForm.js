@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
-import chatup from '../../Assets/Images/chatup2.jpg'
+import chatup from '../../Assets/images/chatup2.jpg'
 
 
 const LoginForm = () => {

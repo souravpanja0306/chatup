@@ -9,12 +9,13 @@ const loginPost = async (req, res) => {
 
     const loginData = await registrationSchema.findOne({ email: email }) //Is email exist? Checked
     const isMatch = await bcrypt.compare(password, loginData.password) //Is password Match? Checked
+    const newToken = await loginData.generateAuthToken() //Generate Token
 
-    const newToken = await loginData.generateAuthToken()
+    console.log(newToken)
 
     res.cookie("Biscuit", newToken, {
-        expires: new Date(Date.now() + 9999999),
-        httpOnly: true
+        expires: new Date(Date.now() + 50000),
+        httpOnly: true,
     })
 
 

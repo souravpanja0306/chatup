@@ -1,17 +1,17 @@
 import React from 'react'
-import chatup from '../Assets/Images/chat2.png'
+import chatup from '../Assets/images/chat2.png'
+
 
 const Home = () => {
     return (
         <>
             <div className='p-4 font-mono'>
                 <div className='m-4'>
-
                     <h1 className='flex justify-center text-9xl font-bold text-orange-500'>
                         <span className='text-4xl text-blue-600 italic'>Let's</span>Chatup
                     </h1>
-                    <p className='text-blue-600 font-bold text-4xl text-center'>The world most famous and most useable chat application</p>
-                    <p className='text-blue-600 font-bold text-4xl text-center'>More than 710+ Billion user in <span className='text-5xl text-green-500'>The Univers</span></p>
+                    <p className='text-blue-600 font-bold text-4xl text-center'>The World Most Famous and Most Useable Chat Application</p>
+                    <p className='text-blue-600 font-bold text-4xl text-center'>More Than 700 Billion+ Users in all Over<span className='text-5xl text-green-500'>The Univers</span></p>
                 </div>
 
                 <div className='flex justify-center h-72'>

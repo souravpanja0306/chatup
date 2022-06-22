@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 const authenticate = async (req, res, next) => {
     try {
 
-        const user = false
+        const user = true
         if (!user) {
             console.log(error)
         } else (
