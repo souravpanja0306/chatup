@@ -22,9 +22,14 @@ const RegForm = () => {
         if (name && phone && email && password && confirmpassword) {
             axios.post("http://localhost:4000/registration", regData)
                 .then((res) => {
-                    console.log(res)
-                    alert("Thank You for conneting with us")
-                    navigate('/login')
+                    if (res.status === 401) {
+                        alert("Password Is Not Match")
+                    } else {
+                        console.log(res)
+                        alert("Thank You for conneting with us")
+                        navigate('/login')
+                    }
+
                 })
                 .catch((err) => {
                     console.log(err)

@@ -11,12 +11,12 @@ const loginPost = async (req, res) => {
     const isMatch = await bcrypt.compare(password, loginData.password) //Is password Match? Checked
 
     const newToken = await loginData.generateAuthToken()
-    console.log(newToken)
 
-    res.cookie("Biscuit", "newToken", {
+    res.cookie("Biscuit", newToken, {
         expires: new Date(Date.now() + 9999999),
         httpOnly: true
     })
+
 
     if (isMatch) {
         res.status(200).json({ status: "Ok", loginData: true })

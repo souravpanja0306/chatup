@@ -7,6 +7,9 @@ const bcrypt = require('bcryptjs')
 const registrationPost = async (req, res) => {
     const { name, phone, email, password, confirmpassword } = req.body
     try {
+        if(password != confirmpassword ){
+            res.status(401).json("Password Not Match")
+        }
         const user = new registrationSchema({
             name: (name).toUpperCase(),
             phone: phone,
