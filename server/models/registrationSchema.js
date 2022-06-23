@@ -23,7 +23,7 @@ registrationSchema.pre("save", async function (next) {
 
 registrationSchema.methods.generateAuthToken = async function () {
     try {
-        let newToken = jwt.sign({ _id: this._id }, "iamsouravpanjailovemymotherfather")
+        let newToken = jwt.sign({ _id: this._id }, "iamsouravpanjailovemyfamily")
         this.tokens = this.tokens.concat({ token: newToken })
         await this.save()
         return newToken

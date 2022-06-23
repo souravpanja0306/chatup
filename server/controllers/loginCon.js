@@ -8,7 +8,7 @@ const loginPost = async (req, res) => {
     const { email, password } = req.body
 
     const loginData = await registrationSchema.findOne({ email: email }) //Is email exist? Checked
-    const isMatch = await bcrypt.compare(password, loginData.password) //Is password Match? Checked
+    const isMatch = await bcrypt.compare(password, loginData.password) //Is password Matched? Checked
     const newToken = await loginData.generateAuthToken() //Generate Token
 
     console.log(newToken)

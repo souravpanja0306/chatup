@@ -9,6 +9,8 @@ import Online from '../components/messenger/Online'
 const Messenger = () => {
     const [messeges, setMesseges] = useState()
     const [users, setUsers] = useState()
+    const [chatId , setChatId]=useState()
+
     const navigate = useNavigate()
     const chat = true
 
@@ -52,6 +54,11 @@ const Messenger = () => {
             .then((res) => { setUsers(res.data) })
             .catch((error) => { console.log(error) })
     }
+
+    const toMsg=(user)=>{
+        setChatId(user)
+    }
+
 
     return (
         <>
@@ -118,7 +125,7 @@ const Messenger = () => {
                             {
                                 users && users.map((user, index) => {
                                     return (
-                                        <div key={index} className="">
+                                        <div key={index} className="" onClick={() =>toMsg(user._id)}>
                                             <Online props={user.name} />
                                         </div>
                                     )

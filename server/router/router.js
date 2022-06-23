@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const cors = require('cors')
+var cookieParser = require('cookie-parser')
 
 // Import Controllers
 const { registrationPost, registrationGet } = require('../controllers/registrationCon')
@@ -11,10 +12,11 @@ const authenticate = require('../middleware/authenticate')
 
 router.use(cors())
 router.use(express.json())
+router.use(cookieParser())
 
 
 
-router.get('/messenger', authenticate, (req, res) => console.log("I am from Backend"))
+router.get('/messenger', authenticate, (req, res) => console.log(res))
 
 // Registration Data Post , Get 
 router.post('/registration', registrationPost) //Post Data
