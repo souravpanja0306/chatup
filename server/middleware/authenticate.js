@@ -3,10 +3,9 @@ const jwt = require('jsonwebtoken')
 
 const authenticate = async (req, res, next) => {
     try {
-
         const user = true
         if (!user) {
-            console.log(error)
+            console.log("error")
         } else (
             next()
         )

@@ -17,8 +17,9 @@ const RegForm = () => {
         console.log(UserData)
     }
     const handelSubmit = (e) => {
-        const { name, phone, email, password, confirmpassword } = regData
         e.preventDefault()
+        const { name, phone, email, password, confirmpassword } = regData
+        
         if (name && phone && email && password && confirmpassword) {
             axios.post("http://localhost:4000/registration", regData)
                 .then((res) => {
@@ -29,7 +30,6 @@ const RegForm = () => {
                         alert("Thank You for conneting with us")
                         navigate('/login')
                     }
-
                 })
                 .catch((err) => {
                     console.log(err)
@@ -82,7 +82,7 @@ const RegForm = () => {
                                 onChange={(e) => handelChange(e)}
                                 className='p-2 rounded-lg border-solid border-gray-600 border-2' />
                         </div>
-                        <button className='bg-blue-500 px-4 py-2 rounded-xl my-2 text-white' onClick={(e) => handelSubmit(e)}>Submit</button>
+                        <button className='bg-blue-500 shadow-blue-200 shadow-xl px-4 py-2 rounded-xl my-2 text-white' onClick={(e) => handelSubmit(e)}>Submit</button>
                     </form>
                     <div className='flex'>
                         <h1>Already Registered? </h1>

@@ -4,7 +4,7 @@ const cors = require('cors')
 var cookieParser = require('cookie-parser')
 
 // Import Controllers
-const { registrationPost, registrationGet } = require('../controllers/registrationCon')
+const { registrationPost, registrationGet, registrationGetId } = require('../controllers/registrationCon')
 const { loginPost } = require('../controllers/loginCon')
 const { conversationPost, conversationGet } = require('../controllers/conversationCon')
 const { messegeGet, messegePost } = require('../controllers/messegeCon')
@@ -16,11 +16,12 @@ router.use(cookieParser())
 
 
 
-router.get('/messenger', authenticate, (req, res) => console.log(res))
+router.get('/messenger', authenticate, (req, res) => console.log(authenticate))
 
 // Registration Data Post , Get 
 router.post('/registration', registrationPost) //Post Data
 router.get('/registration/data', registrationGet) //Get Data
+router.get('/registration/data/:id', registrationGetId) //Get Data
 
 // Login
 router.post('/login', loginPost) //Post data for find

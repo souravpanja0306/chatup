@@ -13,12 +13,12 @@ const LoginForm = () => {
         let userDatas = { ...userData }
         userDatas[e.target.name] = e.target.value
         setUserData(userDatas)
-        console.log(userDatas)
     }
 
     const submit = (e) => {
         e.preventDefault()
         const { email, password } = userData
+        
         if (email && password) {
             axios.post("http://localhost:4000/login", userData)
                 .then((res) => {
@@ -61,7 +61,7 @@ const LoginForm = () => {
                                 onChange={(e) => handelChange(e)}
                                 className='p-2 rounded-lg border-solid border-gray-600 border-2' />
                         </div>
-                        <button className='bg-blue-500 px-4 py-2 rounded-xl my-2 text-white' onClick={(e) => submit(e)}>Submit</button>
+                        <button className='bg-blue-500 px-4 py-2 rounded-xl my-2 text-white shadow-blue-200 shadow-lg hover:bg-blue-600' onClick={(e) => submit(e)}>Submit</button>
                     </form>
                     <div className='flex'>
                         <h1>Not Registered?</h1>

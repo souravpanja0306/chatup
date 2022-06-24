@@ -17,7 +17,7 @@ const conversationPost = async (req, res) => {
 }
 
 
-// Sender and Receiver details fint from conversation by ID
+// Sender and Receiver details find from conversation by ID
 const conversationGet = async (req, res) => {
     try {
         const convData = await conversationSchema.find({

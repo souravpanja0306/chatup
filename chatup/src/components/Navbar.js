@@ -10,8 +10,8 @@ const Navbar = () => {
         </div>
         <div className='flex justify-center items-center'>
           <h1 className='font-bold text-lg hover:text-orange-500 px-4 py-2'><Link to="/">Home</Link></h1>
-          <Link to="/messenger"><h1 className='font-bold text-white hover:bg-green-600 shadow-lg px-4 py-2 rounded-xl bg-green-500 cursor-pointer'>Messenger</h1></Link>
-          <h1 className='font-bold text-lg hover:text-orange-500 px-4 py-2'><Link to="/login">Login</Link></h1>
+          <Link to="/messenger"><h1 className='font-bold text-white hover:bg-green-600 shadow-green-200 shadow-lg px-4 py-2 rounded-xl bg-green-500 cursor-pointer'>Messenger</h1></Link>
+          {/* <h1 className='font-bold text-lg hover:text-orange-500 px-4 py-2'><Link to="/login">Login</Link></h1> */}
           <h1 className='font-bold text-lg hover:text-orange-500 px-4 py-2'><Link to="/registration">Ragistration</Link></h1>
         </div>
       </div>

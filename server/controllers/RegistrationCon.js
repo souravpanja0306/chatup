@@ -22,8 +22,8 @@ const registrationPost = async (req, res) => {
             res.status(200).json("Successfully created")
         }
 
-    } catch {
-        console.log("Sorry")
+    } catch (error) {
+        console.log(error, "Sorry")
     }
 }
 
@@ -33,4 +33,10 @@ const registrationGet = async (req, res) => {
     res.send(UserDatas)
 }
 
-module.exports = { registrationPost, registrationGet }
+const registrationGetId = async (req, res) => {
+    const ids = req.params.id
+    const UserDataById = await registrationSchema.findById(ids)
+    res.send(UserDataById)
+}
+
+module.exports = { registrationPost, registrationGet, registrationGetId }
