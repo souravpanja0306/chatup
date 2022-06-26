@@ -7,7 +7,7 @@ const Profile = ({ props }) => {
 
     return (
         <>
-            <div className='flex p-2 items-center shadow-lg border-solid border-2 border-gray-400 m-1 rounded-lg font-mono'>
+            <div className='h-12 flex p-2 items-center shadow-lg border-solid border-2 border-gray-200 font-mono'>
                 <img src={image ? image : Avater} className="h-8 w-8" alt="None" />
                 <div>
                     <h1 className='px-2 text-lg font-bold'>{props ? props.name : "Please Select"}</h1>

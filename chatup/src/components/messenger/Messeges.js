@@ -13,8 +13,8 @@ const Messeges = ({ me }) => {
             <img src={image ? image : Avater} className="h-8 w-8" />
           </div>
           <div>
-            <h1 className={me ? "flex text-gray-700 bg-gray-300 shadow-gray-200 shadow-lg p-2 max-w-xs rounded-xl rounded-tl-none text-sm"
-              : "flex text-white bg-blue-700 shadow-blue-200 shadow-lg p-2 max-w-xs rounded-xl rounded-tl-none text-sm"}>
+            <h1 className={me ? "border-gray-300 border-2 border-solid flex text-gray-600 bg-gray-200 shadow-gray-200 shadow-lg p-2 max-w-xs rounded-xl rounded-tl-none text-sm"
+              : "flex text-gray-100 bg-blue-600 shadow-blue-200 shadow-lg p-2 max-w-xs rounded-xl rounded-tl-none text-sm"}>
               Sourav Panja Sourav Panja Sourav Panja Sourav Panja Sourav Panja Sourav Panja</h1>
             <span className='text-sm text-gray-400'>1m ago</span>
           </div>

@@ -12,7 +12,7 @@ const Online = ({ props }) => {
         <div className='flex items-center justify-center '>
 
           <div className='flex justify-end items-end rounded-full'>
-            <img src={image ? image : Avater} className="h-10 w-10 border-gray-300 border-solid border-4 rounded-full" alt="None" />
+            <img src={image ? image : Avater} className="h-12 w-12 border-gray-300 border-solid border-4 rounded-full" alt="None" />
             {
               online
                 ? <span className='rounded-full bg-green-500 border-2 border-solid border-green-500 h-2 w-2' />
@@ -20,7 +20,8 @@ const Online = ({ props }) => {
             }
           </div>
           <div>
-            <h1 className='font-bold px-2'>{props}</h1>
+            <h1 className='font-bold px-3'>{props}</h1>
+            <h1 className='font-bold px-3 text-gray-400'>Hello I am Sourav</h1>
           </div>
         </div>
         <div>
