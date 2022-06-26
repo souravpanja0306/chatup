@@ -1,5 +1,5 @@
 import React from 'react'
-import chatup from '../Assets/images/chat2.png'
+import chatup from '../assets/images/chat2.png'
 
 
 const Home = () => {

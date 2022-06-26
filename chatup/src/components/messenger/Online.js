@@ -1,14 +1,14 @@
 import React from 'react'
-import Avater from '../../Assets/images/avater.png'
+import Avater from '../../assets/images/avater.png'
 
 
-const Online = ({ props }) => {
+const Online = ({ user }) => {
   const image = false
   const online = true
 
   return (
     <>
-      <div className='flex justify-between items-center p-3 hover:bg-gray-200 rounded-lg cursor-pointer'>
+      <div className='flex justify-between items-center p-3 hover:bg-gray-200 cursor-pointer border-solid border-2 border-gray-100'>
         <div className='flex items-center justify-center '>
 
           <div className='flex justify-end items-end rounded-full'>
@@ -20,8 +20,7 @@ const Online = ({ props }) => {
             }
           </div>
           <div>
-            <h1 className='font-bold px-3'>{props}</h1>
-            <h1 className='font-bold px-3 text-gray-400'>Hello I am Sourav</h1>
+            <h1 className='font-bold px-3 text-gray-700'>{user.name}</h1>
           </div>
         </div>
         <div>

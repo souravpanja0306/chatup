@@ -4,7 +4,6 @@ const messegeSchema = require('../models/messegeSchema')
 // Post Messege
 const messegePost = async (req, res) => {
     const newMessege = new messegeSchema(req.body)
-    console.log(newMessege)
     try {
         const saveMessege = newMessege.save()
         res.status(200).json(saveMessege)
@@ -17,10 +16,11 @@ const messegePost = async (req, res) => {
 // Get messege
 const messegeGet = async (req, res) => {
     try{
-        const messegeData = messegeSchema.find({
-            conversationId: req.param.conversationId
+        const messegeData = await messegeSchema.find({
+            conversationId: req.params.conversationId
         })
-        res.status(200).json(messegeData)
+        // res.status(200).json(messegeData)
+        res.send(messegeData)
     }catch(error){
         res.status(500).json(error)
     }

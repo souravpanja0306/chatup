@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios'
-import chatup from '../../Assets/images/chatup.jpeg'
+import chatup from '../../assets/images/chatup.jpeg'
 
 const RegForm = () => {
     const navigate = useNavigate()

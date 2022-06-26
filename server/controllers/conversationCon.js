@@ -21,7 +21,7 @@ const conversationPost = async (req, res) => {
 const conversationGet = async (req, res) => {
     try {
         const convData = await conversationSchema.find({
-            $in: [req.params.userid] ,
+            members: { $in: [req.params.userId] }
         })
         // res.status(200).json(convData)
         res.send(convData)

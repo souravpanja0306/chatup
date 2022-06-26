@@ -15,8 +15,7 @@ router.use(express.json())
 router.use(cookieParser())
 
 
-
-router.get('/messenger', authenticate, (req, res) => console.log(authenticate))
+router.get('/authenticate', authenticate, (req, res) => console.log(authenticate))
 
 // Registration Data Post , Get 
 router.post('/registration', registrationPost) //Post Data
@@ -28,7 +27,7 @@ router.post('/login', loginPost) //Post data for find
 
 // Conversations
 router.post('/conversations', conversationPost) //Post Conversations
-router.get('/conversations/:userid', conversationGet) //Get Sender and receiver detail from conversation by id.
+router.get('/conversations/:userId', conversationGet) //Get Sender and receiver detail from conversation by id.
 
 //Messeges
 router.post('/messege', messegePost)
