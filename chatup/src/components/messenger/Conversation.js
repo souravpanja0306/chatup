@@ -32,7 +32,7 @@ const Conversation = ({ conversations, currentUser }) => {
                                 ? <h1 className='font-bold px-2 text-gray-700'>{chatPerson.name}</h1>
                                 : <h1 className='font-bold px-2'>Sorry</h1>
                         }
-                        <h1 className='text-sm px-2 text-gray-400'>Hello I am {chatPerson.name}</h1>
+                        <h1 className='text-sm px-2 text-gray-400'>Hello I am</h1>
                     </div>
 
                 </div>
