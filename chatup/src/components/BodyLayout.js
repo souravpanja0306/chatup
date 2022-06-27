@@ -3,7 +3,7 @@ import React from 'react'
 const BodyLayout = ({ children }) => {
     return (
         <>
-            <div className='min-h-screen bg-green-100'>
+            <div className='min-h-screen bg-white'>
                 {children}
             </div>
         </>

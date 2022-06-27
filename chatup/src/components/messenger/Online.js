@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Avater from '../../assets/images/avater.png'
 
 
 const Online = ({ user }) => {
   const image = false
   const online = true
+
 
   return (
     <>
@@ -19,8 +20,8 @@ const Online = ({ user }) => {
                 : <span className='rounded-full bg-white border-2 border-solid border-white h-2 w-2' />
             }
           </div>
-          <div>
-            <h1 className='font-bold px-3 text-gray-700'>{user.name}</h1>
+          <div className=''>
+            <h1 className='font-bold px-3 text-gray-700' >{user.name}</h1>
           </div>
         </div>
         <div>

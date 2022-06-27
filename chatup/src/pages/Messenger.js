@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import Conversation from '../components/messenger/Conversation'
 import Profile from '../components/messenger/Profile'
 import Messeges from '../components/messenger/Messeges'
@@ -12,14 +12,16 @@ const Messenger = () => {
     const [conversation, setConversation] = useState() // get all conversation from data base
     const [conversationId, setConversationId] = useState() //get perticular conversation id 
     const [allMesseges, setAllMesseges] = useState() // Get all Messeges from database
+    const [accountOf, setAccountOf] = useState()
 
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     const scrollRef = useRef()
-
 
     const currentUser = "62b20a35ba88f1e411a7a092"
 
-    //  62b20a35ba88f1e411a7a092 sourav panja
+    // 62b20a35ba88f1e411a7a092 sourav panja
+    // 62b21c7b437650ba3ac4e1fb Rina Halder
+    // 62b208eba44ec006246eb3cc Suresh Raina
 
 
     // This is for messeges
@@ -36,31 +38,16 @@ const Messenger = () => {
         }
         try {
             const res = await axios.post('http://localhost:4000/messege', newMessege)
-            setMesseges("")
             console.log(res)
+            setMesseges("")
         } catch (err) {
             console.log(err)
         }
     }
 
-    // Get User 
-    useEffect(() => {
-        const isUser = async () => {
-            try {
-                const res = await axios.get('http://localhost:4000/authenticate')
-                console.log(res)
-            } catch (err) {
-                console.log(err)
-                navigate('/login')
-            }
-        }
-        isUser()
-    }, [])
-
-
     // Get all users 
     useEffect(() => {
-        const getusers = async () => {
+        const getUsers = async () => {
             try {
                 const res = await axios.get('http://localhost:4000/registration/data')
                 setOnlineUsers(res.data)
@@ -68,7 +55,20 @@ const Messenger = () => {
                 console.log(err)
             }
         }
-        getusers()
+        getUsers()
+    }, [])
+
+    // Get all users 
+    useEffect(() => {
+        const getParticularUsers = async () => {
+            try {
+                const res = await axios.get(`http://localhost:4000/registration/data/${currentUser}`)
+                setAccountOf(res.data)
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        getParticularUsers()
     }, [])
 
     // Get all conversation from all users(Online)
@@ -89,8 +89,10 @@ const Messenger = () => {
     useEffect(() => {
         const getAllMesseges = async () => {
             try {
-                const res = await axios.get(`http://localhost:4000/messege/${conversationId._id}`)
-                setAllMesseges(res.data)
+                if (conversationId) {
+                    const res = await axios.get(`http://localhost:4000/messege/${conversationId._id}`)
+                    setAllMesseges(res.data)
+                }
             } catch (err) {
                 console.log(err)
             }
@@ -100,11 +102,12 @@ const Messenger = () => {
 
 
     useEffect(() => {
-        scrollRef.current?.scrollIntoView({ behavior: "smooth" })
+        scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
     }, [messeges])
 
     // This is for conversations id 
     const getConversationId = (c) => {
+        console.log(c)
         setConversationId(c)
     }
 
@@ -114,7 +117,7 @@ const Messenger = () => {
         try {
             const resp = await axios.post(`http://localhost:4000/conversations`, {
                 senderId: currentUser,
-                receiverId: user
+                receiverId: user._id
             })
             console.log(resp)
         } catch (err) {
@@ -124,8 +127,8 @@ const Messenger = () => {
 
     return (
         <>
-            <div className='p-4 font-mono h-full bg-sky-700'>
-                {/* <h1 className='text-3xl font-bold text-orange-600 text-center p-2'>Chatup Messenger</h1> */}
+            <div className='p-4 font-mono h-full select-none'>
+                <h1 className='text-3xl font-bold text-orange-600 text-center p-2'>Welcome <span className='text-green-500'>{accountOf ? accountOf.name : ""}</span></h1>
                 <div className='flex'>
                     <div className='w-1/4 font-bold m-1 p-1 border-solid border-2 border-orange-100 shadow-orange-200 shadow-lg bg-white'>
                         <div className='h-12 flex justify-center items-center p-2 shadow-lg border-solid border-2 border-gray-200 font-mono'>
@@ -145,7 +148,7 @@ const Messenger = () => {
                             }
                         </div>
                     </div>
-                    <div className='w-2/4 font-bold p-1 border-solid border-2 m-1 border-orange-100 shadow-orange-200 shadow-lg scroll bg-white'>
+                    <div className='w-2/4 font-bold p-1 border-solid border-2 m-1 border-orange-100 shadow-orange-200 shadow-lg scroll bg-gray-100'>
                         <Profile conversationId={conversationId} currentUser={currentUser} />
                         {
                             conversationId
@@ -170,9 +173,9 @@ const Messenger = () => {
                             conversationId
                                 ? <div className='bg-white bottom-0 sticky inset-x-0'>
                                     <form className='flex'>
-                                        <textarea className='p-4 border-gray-500 border-2 w-full rounded-lg' value={messeges} rows="1" onChange={(e) => handelChange(e)} />
+                                        <textarea className='p-4 border-gray-200 border-2 w-full rounded-lg' value={messeges} rows="1" onChange={(e) => handelChange(e)} />
                                         <div className='flex justify-center items-end p-1'>
-                                            <button className='bg-blue-700 text-white px-4 py-2 rounded-lg' onClick={(e) => handelSubmit(e)}>Send</button>
+                                            <button className='bg-blue-500 text-white px-4 py-2 rounded-lg' onClick={(e) => handelSubmit(e)}>Send</button>
                                         </div>
                                     </form>
                                 </div>
@@ -187,7 +190,7 @@ const Messenger = () => {
                             {
                                 onlineUsers && onlineUsers.map((user, index) => {
                                     return (
-                                        <div key={index} className="" onClick={() => createConversation(user._id)}>
+                                        <div key={index} className={user._id == accountOf._id ? "hidden" : ""} onClick={() => createConversation(user)}>
                                             <Online user={user} />
                                         </div>
                                     )

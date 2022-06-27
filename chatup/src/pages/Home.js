@@ -14,7 +14,7 @@ const Home = () => {
                     <p className='text-blue-600 font-bold text-4xl text-center'>More Than 700 Billion+ Users in all Over<span className='text-5xl text-green-500'>The Univers</span></p>
                 </div>
 
-                <div className='flex justify-center h-72'>
+                <div className='flex justify-center h-60'>
                     <img src={chatup} alt="None" />
                 </div>
                 <div className='flex'>
