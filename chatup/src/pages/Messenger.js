@@ -12,7 +12,7 @@ const Messenger = () => {
     const [conversation, setConversation] = useState() // get all conversation from data base
     const [conversationId, setConversationId] = useState() //get perticular conversation id 
     const [allMesseges, setAllMesseges] = useState() // Get all Messeges from database
-    const [accountOf, setAccountOf] = useState()
+    const [accountOf, setAccountOf] = useState() // name of the currentUser.
 
     // const navigate = useNavigate()
     const scrollRef = useRef()
@@ -103,7 +103,7 @@ const Messenger = () => {
 
     useEffect(() => {
         scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
-    }, [messeges])
+    }, [])
 
     // This is for conversations id 
     const getConversationId = (c) => {
