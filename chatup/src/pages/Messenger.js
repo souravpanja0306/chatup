@@ -19,7 +19,7 @@ const Messenger = () => {
     const scrollRef = useRef() //Scroll
     const socket = useRef() //Socket
 
-    const currentUser = "62b20a35ba88f1e411a7a092"
+    const currentUser = "62b21c7b437650ba3ac4e1fb"
     // 62b20a35ba88f1e411a7a092 sourav panja
     // 62b21c7b437650ba3ac4e1fb Rina Halder
     // 62b208eba44ec006246eb3cc Suresh Raina
@@ -43,7 +43,7 @@ const Messenger = () => {
         const authenticate = async (req, res) => {
             try {
                 const res = await axios.get("http://localhost:4000/authenticate")
-                // console.log(res)
+                console.log(res)
             } catch (err) {
                 console.log(err)
             }
@@ -55,7 +55,7 @@ const Messenger = () => {
     const handelChange = (e) => {
         setMesseges(e.target.value)
     }
-    
+
     const handelSubmit = async (e) => {
         e.preventDefault()
         const newMessege = {
@@ -64,13 +64,13 @@ const Messenger = () => {
             text: messeges
         }
 
-        const receiverId= conversationId.members.find(member => member !== currentUser)
-
+        const receiverId = conversationId.members.find(member => member !== currentUser)
         socket.current.emit("sendMsg", {
             senderId: currentUser,
             receiverId: receiverId,
             text: messeges
         })
+
         try {
             const res = await axios.post('http://localhost:4000/messege', newMessege)
             console.log(res)
@@ -138,7 +138,7 @@ const Messenger = () => {
 
     useEffect(() => {
         scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
-    }, [])
+    }, [messeges])
 
     // This is for conversations id 
     const getConversationId = (c) => {

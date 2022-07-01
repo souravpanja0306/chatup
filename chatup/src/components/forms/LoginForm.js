@@ -39,7 +39,7 @@ const LoginForm = () => {
 
     return (
         <>
-            <div className='flex min-h-screen items-center'>
+            <div className='flex items-center'>
                 <div className='w-1/2 flex items-center'>
                     <img src={chatup} alt="No Images" className='h-full w-full' />
                 </div>

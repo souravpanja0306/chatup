@@ -41,7 +41,7 @@ const RegForm = () => {
 
     return (
         <>
-            <div className='flex min-h-screen items-center'>
+            <div className='flex items-center'>
                 <div className='w-1/2 grid px-24'>
                     <h1 className='text-3xl font-bold text-orange-500 text-center p-2'>Registration</h1>
                     <form method="post">
