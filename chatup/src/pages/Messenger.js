@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
+import { io } from "socket.io-client"
 // import { useNavigate } from 'react-router-dom'
 import Conversation from '../components/messenger/Conversation'
 import Profile from '../components/messenger/Profile'
@@ -15,20 +16,46 @@ const Messenger = () => {
     const [accountOf, setAccountOf] = useState() // name of the currentUser.
 
     // const navigate = useNavigate()
-    const scrollRef = useRef()
+    const scrollRef = useRef() //Scroll
+    const socket = useRef() //Socket
 
     const currentUser = "62b20a35ba88f1e411a7a092"
-
     // 62b20a35ba88f1e411a7a092 sourav panja
     // 62b21c7b437650ba3ac4e1fb Rina Halder
     // 62b208eba44ec006246eb3cc Suresh Raina
 
 
+    useEffect(()=>{
+        socket.current = io("ws://localhost:5000")
+    },[])
+
+    useEffect(() => {
+        socket.current.emit("addUser", currentUser)
+        socket.current.on("getUsers", users => {
+            console.log(users)
+        })
+    }, [currentUser])
+
+
+
+    // Authentication
+    useEffect(() => {
+        const authenticate = async (req, res) => {
+            try {
+                const res = await axios.get("http://localhost:4000/authenticate")
+                // console.log(res)
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        authenticate()
+    }, [conversation])
+
     // This is for messeges
     const handelChange = (e) => {
         setMesseges(e.target.value)
     }
-
+    
     const handelSubmit = async (e) => {
         e.preventDefault()
         const newMessege = {
@@ -36,6 +63,14 @@ const Messenger = () => {
             senderId: currentUser,
             text: messeges
         }
+
+        const receiverId= conversationId.members.find(member => member !== currentUser)
+
+        socket.current.emit("sendMsg", {
+            senderId: currentUser,
+            receiverId: receiverId,
+            text: messeges
+        })
         try {
             const res = await axios.post('http://localhost:4000/messege', newMessege)
             console.log(res)

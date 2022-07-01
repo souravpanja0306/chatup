@@ -15,7 +15,7 @@ router.use(express.json())
 router.use(cookieParser())
 
 
-router.get('/authenticate', authenticate, (req, res) => console.log(authenticate))
+router.get('/authenticate', authenticate)
 
 // Registration Data Post , Get 
 router.post('/registration', registrationPost) //Post Data
