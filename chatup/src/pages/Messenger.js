@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import { io } from "socket.io-client"
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Conversation from '../components/messenger/Conversation'
 import Profile from '../components/messenger/Profile'
 import Messeges from '../components/messenger/Messeges'
 import Online from '../components/messenger/Online'
+
 
 const Messenger = () => {
     const [messeges, setMesseges] = useState() // Write messeges 
@@ -15,41 +16,39 @@ const Messenger = () => {
     const [allMesseges, setAllMesseges] = useState() // Get all Messeges from database
     const [accountOf, setAccountOf] = useState() // name of the currentUser.
 
-    // const navigate = useNavigate()
-    const scrollRef = useRef() //Scroll
+    const navigate = useNavigate()
     const socket = useRef() //Socket
 
-    const currentUser = "62b21c7b437650ba3ac4e1fb"
-    // 62b20a35ba88f1e411a7a092 sourav panja
-    // 62b21c7b437650ba3ac4e1fb Rina Halder
-    // 62b208eba44ec006246eb3cc Suresh Raina
-
-
-    useEffect(()=>{
-        socket.current = io("ws://localhost:5000")
-    },[])
+    // const currentUser = accountOf ? accountOf._id : ""
 
     useEffect(() => {
-        socket.current.emit("addUser", currentUser)
-        socket.current.on("getUsers", users => {
-            console.log(users)
-        })
-    }, [currentUser])
-
-
-
-    // Authentication
-    useEffect(() => {
-        const authenticate = async (req, res) => {
-            try {
-                const res = await axios.get("http://localhost:4000/authenticate")
-                console.log(res)
-            } catch (err) {
-                console.log(err)
-            }
+        const messengerPage = () => {
+            axios.get("http://localhost:4000/messenger", { withCredentials: true })
+                .then((res) => {
+                    setAccountOf(res.data)
+                    console.log(res.data)
+                })
+                .catch((err) => {
+                    console.log(err)
+                    navigate("/login")
+                })
         }
-        authenticate()
-    }, [conversation])
+        messengerPage()
+    }, [])
+
+
+    useEffect(() => {
+        socket.current = io("ws://localhost:5000")
+    }, [])
+
+    useEffect(() => {
+        if (accountOf) {
+            socket.current.emit("addUser", accountOf._id)
+            socket.current.on("getUsers", users => {
+                // console.log(users)
+            })
+        }
+    }, [accountOf])
 
     // This is for messeges
     const handelChange = (e) => {
@@ -60,13 +59,13 @@ const Messenger = () => {
         e.preventDefault()
         const newMessege = {
             conversationId: conversationId,
-            senderId: currentUser,
+            senderId: accountOf._id,
             text: messeges
         }
 
-        const receiverId = conversationId.members.find(member => member !== currentUser)
+        const receiverId = conversationId.members.find(member => member !== accountOf._id)
         socket.current.emit("sendMsg", {
-            senderId: currentUser,
+            senderId: accountOf._id,
             receiverId: receiverId,
             text: messeges
         })
@@ -93,31 +92,23 @@ const Messenger = () => {
         getUsers()
     }, [])
 
-    // Get all users 
-    useEffect(() => {
-        const getParticularUsers = async () => {
-            try {
-                const res = await axios.get(`http://localhost:4000/registration/data/${currentUser}`)
-                setAccountOf(res.data)
-            } catch (err) {
-                console.log(err)
-            }
-        }
-        getParticularUsers()
-    }, [])
-
     // Get all conversation from all users(Online)
     useEffect(() => {
         const GetConversations = async () => {
             try {
-                const res = await axios.get(`http://localhost:4000/conversations/${currentUser}`)
-                setConversation(res.data)
+                if (accountOf) {
+                    await axios.get(`http://localhost:4000/conversations/${accountOf._id}`)
+                        .then((res) => {
+                            setConversation(res.data)
+                        })
+                        .catch((err) => console.log(err))
+                }
             } catch (err) {
                 console.log(err)
             }
         }
         GetConversations()
-    }, [conversation])
+    }, [conversation, accountOf])
 
 
     // Get All messeges 
@@ -135,11 +126,6 @@ const Messenger = () => {
         getAllMesseges()
     }, [conversation])
 
-
-    useEffect(() => {
-        scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
-    }, [messeges])
-
     // This is for conversations id 
     const getConversationId = (c) => {
         console.log(c)
@@ -151,7 +137,7 @@ const Messenger = () => {
     const createConversation = async (user) => {
         try {
             const resp = await axios.post(`http://localhost:4000/conversations`, {
-                senderId: currentUser,
+                senderId: accountOf._id,
                 receiverId: user._id
             })
             console.log(resp)
@@ -175,7 +161,7 @@ const Messenger = () => {
                                     return (
                                         <div key={i}>
                                             <div onClick={() => getConversationId(c)}>
-                                                <Conversation index={i} conversations={c} currentUser={currentUser} />
+                                                <Conversation index={i} conversations={c} currentUser={accountOf._id} />
                                             </div>
                                         </div>
                                     )
@@ -184,7 +170,7 @@ const Messenger = () => {
                         </div>
                     </div>
                     <div className='w-2/4 font-bold p-1 border-solid border-2 m-1 border-orange-100 shadow-orange-200 shadow-lg scroll bg-gray-100'>
-                        <Profile conversationId={conversationId} currentUser={currentUser} />
+                        <Profile conversationId={conversationId} currentUser={accountOf ? accountOf._id : ""} />
                         {
                             conversationId
                                 ? <>
@@ -193,8 +179,8 @@ const Messenger = () => {
                                             {
                                                 allMesseges && allMesseges.map((m, i) => {
                                                     return (
-                                                        <div key={i} ref={scrollRef}>
-                                                            <Messeges messeges={m} me={m.senderId === currentUser} />
+                                                        <div key={i}>
+                                                            <Messeges messeges={m} me={m.senderId === accountOf._id} />
                                                         </div>
                                                     )
                                                 })
@@ -202,7 +188,7 @@ const Messenger = () => {
                                         </div>
                                     </div>
                                 </>
-                                : <h1 className='text-center text-gray-300 text-8xl'>Please select a Conversation</h1>
+                                : <h1 className='text-center text-gray-300 text-4xl md:text-6xl lg:xl:text-8xl'>Please select a Conversation</h1>
                         }
                         {
                             conversationId

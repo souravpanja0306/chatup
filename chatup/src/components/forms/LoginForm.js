@@ -18,11 +18,10 @@ const LoginForm = () => {
     const submit = (e) => {
         e.preventDefault()
         const { email, password } = userData
-        
+
         if (email && password) {
-            axios.post("http://localhost:4000/login", userData)
+            axios.post("http://localhost:4000/login", userData, {withCredentials:true})
                 .then((res) => {
-                    console.log(res.status)
                     if (res.status === 200) {
                         navigate('/messenger')
                     } else {
@@ -31,7 +30,7 @@ const LoginForm = () => {
                 })
                 .catch((err) => { console.log(err) })
         } else {
-            alert('Sorry')
+            alert("Please fill the fields")
         }
 
 
@@ -39,11 +38,11 @@ const LoginForm = () => {
 
     return (
         <>
-            <div className='flex items-center'>
-                <div className='w-1/2 flex items-center'>
+            <div className='md:lg:xl:flex items-center'>
+                <div className='md:lg:xl:w-1/2 flex items-center'>
                     <img src={chatup} alt="No Images" className='h-full w-full' />
                 </div>
-                <div className='w-1/2 grid px-24'>
+                <div className='md:lg:xl:w-1/2 flex-row px-24'>
                     <h1 className='text-3xl font-bold text-orange-500 text-center p-2'>Login</h1>
                     <form method="post">
                         <div className='grid'>

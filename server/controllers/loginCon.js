@@ -8,20 +8,21 @@ const loginPost = async (req, res) => {
     const { email, password } = req.body
 
     const loginData = await registrationSchema.findOne({ email: email }) //Is email exist? Checked
-    const isMatch = await bcrypt.compare(password, loginData.password) //Is password Matched? Checked
-    const newToken = await loginData.generateAuthToken() //Generate Token
 
-    console.log(newToken)
-    res.cookie("Biscuit", newToken, {
-        expires: new Date(Date.now() + 50000),
-        httpOnly: true,
-    })
+    if (loginData) {
+        const isMatch = await bcrypt.compare(password, loginData.password) //Is password Matched? Checked
 
-
-    if (isMatch) {
-        res.status(200).json({ status: "Ok", loginData: true })
+        if (isMatch) {
+            const newToken = await loginData.generateAuthToken() //Generate Token
+            res.cookie("Biscuit", newToken, {
+                httpOnly: true,
+            })
+            res.status(200).json("Successfull")
+        } else {
+            res.status(401).json("Unsuccessfull")
+        }
     } else {
-        res.status(201).json({ status: "Error", loginData: false })
+        res.status(401).json("Unsuccessfull")
     }
 }
 

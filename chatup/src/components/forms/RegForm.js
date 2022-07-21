@@ -19,7 +19,7 @@ const RegForm = () => {
     const handelSubmit = (e) => {
         e.preventDefault()
         const { name, phone, email, password, confirmpassword } = regData
-        
+
         if (name && phone && email && password && confirmpassword) {
             axios.post("http://localhost:4000/registration", regData)
                 .then((res) => {
@@ -41,8 +41,11 @@ const RegForm = () => {
 
     return (
         <>
-            <div className='flex items-center'>
-                <div className='w-1/2 grid px-24'>
+            <div className='md:lg:xl:flex items-center'>
+                <div className='md:lg:xl:w-1/2 flex items-center'>
+                    <img src={chatup} alt="No Images" className='h-full w-full' />
+                </div>
+                <div className='md:lg:xl:w-1/2 flex-row px-24'>
                     <h1 className='text-3xl font-bold text-orange-500 text-center p-2'>Registration</h1>
                     <form method="post">
                         <div className='grid '>
@@ -88,9 +91,6 @@ const RegForm = () => {
                         <h1>Already Registered? </h1>
                         <h1 className='text-blue-500'><Link to="/login"> Login</Link></h1>
                     </div>
-                </div>
-                <div className='w-1/2 flex items-center'>
-                    <img src={chatup} alt="No Images" className='h-full w-full' />
                 </div>
             </div>
         </>
